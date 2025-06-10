@@ -30,9 +30,38 @@ const { frontmatter, Content } = memberModule;
 <Layout
     title={'@' + frontmatter.id}
 >
-    <h1>{frontmatter.name}</h1>
-    <p>{frontmatter.desc}</p>
+
+    <div
+        class="member-header"
+    >
+        <img src={frontmatter.avatar} alt={`${frontmatter.name}'s avatar`} class="avatar" />
+        <h1>{frontmatter.name}</h1>
+    </div>
+
     <article>
         <Content />
     </article>
 </Layout>
+
+<style>
+    .avatar {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .member-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    article {
+        border: 1px solid #ccc;
+        max-width: 800px;
+        border-radius: 8px;
+        padding: 1rem;
+        flex: 1;
+    }
+</style>

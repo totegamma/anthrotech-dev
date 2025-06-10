@@ -1,18 +1,75 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import MemberCard from '../components/MemberCard.astro';
 
 const modules = import.meta.glob('../members/*/index.mdx', { eager: true });
 const members = Object.values(modules).map((mod: any) => mod.frontmatter);
 ---
 
 <Layout>
-    <h1>Members</h1>
+    <h1>Astrotech</h1>
+    <div>
+        同じケモノ界隈でも、意外とフォロワーがどんなことをやっているのか分からないことが多いですよね。
+
+        Anthrotechは以下の目的で作られた、ケモノ界隈の技術者のためのコミュニティです。
+        <ul>
+            <li>界隈のみんなが取り組んでいることを知る</li>
+            <li>新しい技術を知る・学ぶきっかけ作り</li>
+            <li>初心者の方のサポート</li>
+            <li>LT会やその他のイベント等の拠点に</li>
+        </ul>
+
+        ケモノが好きで、技術にも興味がある人は誰でも歓迎です！お気軽にDiscordにJoin！。
+
+    </div>
+
+    <div>
+        <a
+            id="discord"
+            href="https://discord.gg/wq63YhUv76"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            Discordに参加
+        </a>
+    </div>
+
+    <h2>ToDo</h2>
     <ul>
-        {members.map((member: any) => (
-        <li>
-            <a href={`/@${member.id}`}>{member.name}</a>
-        </li>
-        ))}
+        <li>webページを良い感じにする</li>
+        <li>仮ロゴもなんとかする</li>
+        <li>DiscordにGitHubと連携したお楽しみ要素を追加する</li>
     </ul>
+
+    <h2>Member Directory</h2>
+    <div id="members">
+        {members.map((member: any) => (
+            <MemberCard 
+                name={member.name}
+                description={member.description}
+                avatar={member.avatar}
+                href={`/@${member.id}`}
+            />
+        ))}
+    </div>
 </Layout>
 
+<style>
+    #members {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    #discord {
+        background-color: #7289da;
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+</style>
+    

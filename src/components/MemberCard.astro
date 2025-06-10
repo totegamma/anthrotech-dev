@@ -1,0 +1,44 @@
+---
+const { name, avatar, description, href } = Astro.props;
+---
+
+<a class="member-card" href={href}>
+    <img src={avatar} alt={`${name}'s avatar`} class="avatar" />
+    <div class="body">
+        <h2 class="name">{name}</h2>
+        <p class="description">{description}</p>
+    </div>
+</a>
+
+<style>
+    .member-card {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 16px;
+        width: 300px;
+        display: flex;
+        text-decoration: none;
+        color: inherit;
+        gap: 16px;
+    }
+    .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .name {
+        font-size: 1.5em;
+        margin: 10px 0;
+    }
+    .description {
+        color: #666;
+    }
+    .body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+</style>
+
+
