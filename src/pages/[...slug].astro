@@ -1,0 +1,42 @@
+---
+import { AstroError } from 'astro/errors';
+
+export async function getStaticPaths() {
+    const modules = import.meta.glob('../members/**/*.mdx', { eager: true });
+        return Object.keys(modules).map((file) => {
+            const path = '@' + file
+            .replace('../members/', '')
+            .replace(/\.mdx$/, '')
+            .replace(/\/index$/, '')
+        return { params: { slug: path } };
+    });
+}
+
+const encodedslug = Astro.params.slug;
+let slug = encodedslug.startsWith('@') ? encodedslug.slice(1) : encodedslug;
+if (!slug.includes('/')) {
+    slug += '/index';
+}
+const memberPath = `../members/${slug}.mdx`;
+const memberModule: any = import.meta.glob('../members/**/*.mdx', { eager: true })[memberPath];
+if (!memberModule) {
+  throw new AstroError(`Member not found: ${slug}`);
+}
+
+const { frontmatter, Content } = memberModule;
+
+---
+<html>
+    <head>
+        <title>{frontmatter.name} - Member Details</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>{frontmatter.name}</h1>
+        <p>{frontmatter.desc}</p>
+        <article>
+            <Content />
+        </article>
+    </body>
+</html>
