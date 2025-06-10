@@ -1,4 +1,5 @@
 ---
+import Layout from '../layouts/Layout.astro';
 import { AstroError } from 'astro/errors';
 
 export async function getStaticPaths() {
@@ -26,17 +27,12 @@ if (!memberModule) {
 const { frontmatter, Content } = memberModule;
 
 ---
-<html>
-    <head>
-        <title>{frontmatter.name} - Member Details</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>{frontmatter.name}</h1>
-        <p>{frontmatter.desc}</p>
-        <article>
-            <Content />
-        </article>
-    </body>
-</html>
+<Layout
+    title={'@' + frontmatter.id}
+>
+    <h1>{frontmatter.name}</h1>
+    <p>{frontmatter.desc}</p>
+    <article>
+        <Content />
+    </article>
+</Layout>

@@ -1,15 +1,11 @@
 ---
+import Layout from '../layouts/Layout.astro';
+
 const modules = import.meta.glob('../members/*/index.mdx', { eager: true });
 const members = Object.values(modules).map((mod: any) => mod.frontmatter);
 ---
 
-<html>
-    <head>
-        <title>Members List</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
+<Layout>
     <h1>Members</h1>
     <ul>
         {members.map((member: any) => (
@@ -18,6 +14,5 @@ const members = Object.values(modules).map((mod: any) => mod.frontmatter);
         </li>
         ))}
     </ul>
-    </body>
-</html>
+</Layout>
 
